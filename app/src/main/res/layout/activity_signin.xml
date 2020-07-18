@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="3"
+        android:layout_gravity="center"
+        >
+
+        <EditText
+            android:id="@+id/name_edittext_signin"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="আপনার নাম"
+            android:gravity="center"
+            android:padding="50dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:inputType="text"
+            android:backgroundTint="@android:color/holo_blue_light"
+            />
+
+
+        <EditText
+            android:id="@+id/password_edittext_signin"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="আপনার পাসওয়ার্ড"
+            android:gravity="center"
+            android:padding="50dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:inputType="textPassword"
+            android:backgroundTint="@android:color/holo_blue_light"
+            />
+
+        <Button
+            android:id="@+id/signin_button"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="সাইন ইন করুন"
+            android:layout_gravity="center"
+            android:padding="30dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_blue_light"
+            />
+
+    </LinearLayout>
+
+</ScrollView>
