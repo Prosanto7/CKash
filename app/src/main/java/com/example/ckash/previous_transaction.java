@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -53,47 +54,48 @@ public class previous_transaction extends AppCompatActivity implements Navigatio
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("transaction_database", Context.MODE_PRIVATE);
+        try {
 
-        int lastid = Integer.parseInt(sharedPreferences.getString("lastid","Data Not Found"));
+            SharedPreferences sharedPreferences = getSharedPreferences("transaction_database", Context.MODE_PRIVATE);
 
-        String[] total_result_array = new String[lastid];
+            int lastid = Integer.parseInt(sharedPreferences.getString("lastid", "Data Not Found"));
+
+            String[] total_result_array = new String[lastid];
+
+            if (sharedPreferences.contains("lastid")) {
+
+                for (int i = 0; i < lastid; i++) {
+                    String result = sharedPreferences.getString(Integer.toString(i + 1), "Data " + i + 1 + " Not Found") + "\n";
+                    total_result_array[i] = result;
+                }
+
+            }
 
 
+            previous_transaction_listview = (ListView) findViewById(R.id.previous_transaction_listview);
+            searchView = (SearchView) findViewById(R.id.searchview);
 
-        if(sharedPreferences.contains("lastid"))
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(previous_transaction.this, R.layout.sampleview, R.id.sampleview_textview, total_result_array);
+            previous_transaction_listview.setAdapter(adapter);
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    adapter.getFilter().filter(newText);
+                    return false;
+                }
+            });
+
+        }catch (Exception e)
         {
-
-            for (int i = 0;i<lastid;i++)
-            {
-            String result = sharedPreferences.getString(Integer.toString(i+1), "Data "+i+1+" Not Found") + "\n";
-            total_result_array[i] = result;
-           }
-            
+            Toast.makeText(previous_transaction.this," আপনি কোনো লেনদেন করেন নি ",Toast.LENGTH_SHORT).show();
         }
 
-
-        previous_transaction_listview = (ListView) findViewById(R.id.previous_transaction_listview);
-        searchView = (SearchView) findViewById(R.id.searchview);
-
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(previous_transaction.this,R.layout.sampleview,R.id.sampleview_textview,total_result_array);
-        previous_transaction_listview.setAdapter(adapter);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-
-
-        // result_textview.setText(result);
 
 
     }

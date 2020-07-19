@@ -71,7 +71,7 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick(View v) {
 
-                String amount = amount_edittext.getText().toString();
+                final String amount = amount_edittext.getText().toString();
                 final String cause = cause_edittext.getText().toString();
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy তারিখ hh:mm:ss a", Locale.getDefault());
@@ -100,7 +100,11 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                                      if(sharedPreferences.contains("lastid"))
                                      {
                                          int lastid = Integer.parseInt(sharedPreferences.getString("lastid","Data Not Found"));
+                                         int lastBalance = Integer.parseInt(sharedPreferences.getString("lastBalance","Data Not Found"));
                                          int newid = lastid+1;
+                                         int newBalace = lastBalance + Integer.parseInt(amount);
+                                         editor.putString("lastBalance",Integer.toString(newBalace));
+                                         editor.commit();
                                          editor.putString("lastid",Integer.toString(newid));
                                          editor.commit();
                                          editor.putString(Integer.toString(newid),income_messase);
@@ -108,6 +112,8 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                                      }
                                      else
                                      {
+                                         editor.putString("lastBalance",amount);
+                                         editor.commit();
                                          editor.putString("lastid","1");
                                          editor.commit();
                                          editor.putString("1",income_messase);
@@ -167,7 +173,11 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                                      if(sharedPreferences.contains("lastid"))
                                      {
                                         int lastid = Integer.parseInt(sharedPreferences.getString("lastid","Data Not Found"));
+                                        int lastBalance = Integer.parseInt(sharedPreferences.getString("lastBalance","Data Not Found"));
                                         int newid = lastid+1;
+                                        int newBalace = lastBalance - Integer.parseInt(amount);
+                                        editor.putString("lastBalance",Integer.toString(newBalace));
+                                        editor.commit();
                                         editor.putString("lastid",Integer.toString(newid));
                                         editor.commit();
                                         editor.putString(""+newid,cost_messase);
@@ -175,6 +185,8 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                                      }
                                      else
                                      {
+                                         editor.putString("lastBalance",amount);
+                                         editor.commit();
                                          editor.putString("lastid","1");
                                          editor.commit();
                                          editor.putString("1",cost_messase);

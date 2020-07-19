@@ -5,11 +5,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -17,6 +20,8 @@ public class current_balance extends AppCompatActivity implements NavigationView
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
+
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,19 @@ public class current_balance extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        textView = (TextView) findViewById(R.id.current_balace_textview);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("transaction_database", Context.MODE_PRIVATE);
+
+
+        if(sharedPreferences.contains("lastid"))
+        {
+            String lastBalance = sharedPreferences.getString("lastBalance","Data Not Found");
+            textView.setText("আপনার বর্তমান ব্যালেন্স "+lastBalance);
+
+        }
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
