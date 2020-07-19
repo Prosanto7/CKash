@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawerlayout_of_othhers"
+    android:id="@+id/drawerlayout_of_current_balance"
     tools:openDrawer="start"
-    tools:context=".others">
+    tools:context=".current_balance">
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigationbar_of_ohters"
+        android:id="@+id/navigationbar_of_current_balance"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@android:color/white"

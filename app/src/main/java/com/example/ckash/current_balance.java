@@ -3,81 +3,29 @@ package com.example.ckash;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.google.android.material.navigation.NavigationView;
 
-public class home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class current_balance extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
 
-    private CardView balack_check_cardview,income_cost_cardview,previous_transaction_check_cardview,others_cardview;
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_current_balance);
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout_of_current_balance);
 
-        balack_check_cardview = (CardView) findViewById(R.id.balack_check_cardview);
-        income_cost_cardview = (CardView) findViewById(R.id.income_cost_cardview);
-        previous_transaction_check_cardview = (CardView) findViewById(R.id.previous_transaction_check_cardview);
-        others_cardview = (CardView) findViewById(R.id.others_cardview);
-
-        balack_check_cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home.this,current_balance.class);
-                startActivity(intent);
-
-            }
-        });
-        income_cost_cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home.this,income_cost.class);
-                startActivity(intent);
-
-            }
-        });
-        previous_transaction_check_cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home.this,previous_transaction.class);
-                startActivity(intent);
-
-            }
-        });
-        others_cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(home.this,others.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-
-        NavigationView navigationview = (NavigationView) findViewById(R.id.navigationbar);
+        NavigationView navigationview = (NavigationView) findViewById(R.id.navigationbar_of_current_balance);
         navigationview.setNavigationItemSelectedListener(this);
 
         toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.nav_open,R.string.nav_close);
@@ -85,9 +33,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,14 +65,14 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
 
         if(item.getItemId()==R.id.feedback_menu)
         {
-            Intent intent = new Intent(home.this,feedback.class);
+            Intent intent = new Intent(current_balance.this,feedback.class);
             startActivity(intent);
             return true;
         }
 
         if(item.getItemId()==R.id.aboutus_menu)
         {
-            Intent intent = new Intent(home.this,aboutus.class);
+            Intent intent = new Intent(current_balance.this,aboutus.class);
             startActivity(intent);
             return true;
         }
@@ -157,15 +103,16 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
 
         if(menuItem.getItemId()==R.id.profile_navigationbar)
         {
-            Intent intent = new Intent(home.this,userprofile.class);
+            Intent intent = new Intent(current_balance.this,userprofile.class);
+            startActivity(intent);
+        }
+
+        if(menuItem.getItemId()==R.id.home_navigationbar)
+        {
+            Intent intent = new Intent(current_balance.this,home.class);
             startActivity(intent);
         }
 
         return false;
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }
