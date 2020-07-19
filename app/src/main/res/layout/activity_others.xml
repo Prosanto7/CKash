@@ -8,6 +8,119 @@
     tools:openDrawer="start"
     tools:context=".others">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="বিনোদন"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textSize="20sp"
+        android:padding="25dp"
+        />
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:gravity="center"
+         >
+
+        <ImageButton
+              android:id="@+id/facebook_button"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:src="@drawable/facebook_icon"
+              android:layout_margin="30dp"
+
+         />
+
+         <ImageButton
+             android:id="@+id/youtube_button"
+             android:layout_width="100dp"
+             android:layout_height="100dp"
+             android:src="@drawable/youtube_icon"
+             android:layout_margin="30dp"
+             />
+     </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="নিউজ পোর্টাল"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textSize="20sp"
+            android:padding="25dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/prothom_alo_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="প্রথম আলো"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_blue_light"
+                />
+
+            <Button
+                android:id="@+id/kaler_kontho_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="কালের কন্ঠ"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_blue_light"
+                />
+
+            <Button
+                android:id="@+id/jugantor_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="যুগান্তর"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_blue_light"
+                />
+
+            <Button
+                android:id="@+id/the_daily_star_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="THE DAILY STAR"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_blue_light"
+                />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationbar_of_ohters"
         android:layout_width="wrap_content"

@@ -11,27 +11,27 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class others extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class webview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
 
-    private ImageButton facebook_button,youtube_button;
-    private Button prothomalo_button,kalerkontho_button,jugantor_button,thedailystar_button;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_others);
+        setContentView(R.layout.activity_webview);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout_of_othhers);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout_of_webview);
 
-        NavigationView navigationview = (NavigationView) findViewById(R.id.navigationbar_of_ohters);
+        NavigationView navigationview = (NavigationView) findViewById(R.id.navigationbar_of_webview);
         navigationview.setNavigationItemSelectedListener(this);
 
         toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.nav_open,R.string.nav_close);
@@ -42,73 +42,25 @@ public class others extends AppCompatActivity implements NavigationView.OnNaviga
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        facebook_button = (ImageButton) findViewById(R.id.facebook_button);
-        youtube_button = (ImageButton) findViewById(R.id.youtube_button);
 
-        prothomalo_button = (Button) findViewById(R.id.prothom_alo_button);
-        jugantor_button = (Button) findViewById(R.id.jugantor_button);
-        kalerkontho_button = (Button) findViewById(R.id.kaler_kontho_button);
-        thedailystar_button = (Button) findViewById(R.id.the_daily_star_button);
+        Bundle bundle = getIntent().getExtras();
 
-        facebook_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        String website;
 
-                Intent intent = new Intent(others.this,webview.class);
-                intent.putExtra("website","https://www.facebook.com/");
-                startActivity(intent);
-            }
-        });
+        if(bundle!=null)
+        {
+           website = bundle.getString("website");
 
-        youtube_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+           webView = (WebView) findViewById(R.id.webview);
 
-                Intent intent = new Intent(others.this,webview.class);
-                intent.putExtra("website","https://www.youtube.com/");
-                startActivity(intent);
-            }
-        });
+            WebSettings webSettings = webView.getSettings();
+            webSettings.setJavaScriptEnabled(true);
 
-        prothomalo_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            webView.setWebViewClient(new WebViewClient());
 
-                Intent intent = new Intent(others.this,webview.class);
-                intent.putExtra("website","https://www.prothomalo.com/");
-                startActivity(intent);
-            }
-        });
+           webView.loadUrl(website);
+        }
 
-        kalerkontho_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(others.this,webview.class);
-                intent.putExtra("website","https://www.kalerkantho.com/");
-                startActivity(intent);
-            }
-        });
-
-        jugantor_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(others.this,webview.class);
-                intent.putExtra("website","https://www.jugantor.com/");
-                startActivity(intent);
-            }
-        });
-
-        thedailystar_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(others.this,webview.class);
-                intent.putExtra("website","https://www.thedailystar.net/");
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -141,14 +93,14 @@ public class others extends AppCompatActivity implements NavigationView.OnNaviga
 
         if(item.getItemId()==R.id.feedback_menu)
         {
-            Intent intent = new Intent(others.this,feedback.class);
+            Intent intent = new Intent(webview.this,feedback.class);
             startActivity(intent);
             return true;
         }
 
         if(item.getItemId()==R.id.aboutus_menu)
         {
-            Intent intent = new Intent(others.this,aboutus.class);
+            Intent intent = new Intent(webview.this,aboutus.class);
             startActivity(intent);
             return true;
         }
@@ -179,16 +131,28 @@ public class others extends AppCompatActivity implements NavigationView.OnNaviga
 
         if(menuItem.getItemId()==R.id.profile_navigationbar)
         {
-            Intent intent = new Intent(others.this,userprofile.class);
+            Intent intent = new Intent(webview.this,userprofile.class);
             startActivity(intent);
         }
 
         if(menuItem.getItemId()==R.id.home_navigationbar)
         {
-            Intent intent = new Intent(others.this,home.class);
+            Intent intent = new Intent(webview.this,home.class);
             startActivity(intent);
         }
 
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(webView.canGoBack())
+        {
+            webView.goBack();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }
