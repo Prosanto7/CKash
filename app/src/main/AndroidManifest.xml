@@ -11,19 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".webview"></activity>
-        <activity android:name=".previous_transaction" />
-        <activity android:name=".income_cost" />
-        <activity android:name=".current_balance" />
-        <activity android:name=".others" />
-        <activity android:name=".userprofile" />
-        <activity android:name=".aboutus" />
-        <activity android:name=".feedback" />
-        <activity android:name=".home" />
-        <activity android:name=".signin" />
-        <activity android:name=".signup" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".splash_screen">
+        <activity android:name=".webview" android:screenOrientation="portrait"></activity>
+        <activity android:name=".previous_transaction" android:screenOrientation="portrait"/>
+        <activity android:name=".income_cost" android:screenOrientation="portrait"/>
+        <activity android:name=".current_balance" android:screenOrientation="portrait"/>
+        <activity android:name=".others" android:screenOrientation="portrait"/>
+        <activity android:name=".userprofile" android:screenOrientation="portrait"/>
+        <activity android:name=".aboutus" android:screenOrientation="portrait"/>
+        <activity android:name=".feedback" android:screenOrientation="portrait"/>
+        <activity android:name=".home" android:screenOrientation="portrait"/>
+        <activity android:name=".signin" android:screenOrientation="portrait"/>
+        <activity android:name=".signup" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".splash_screen"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

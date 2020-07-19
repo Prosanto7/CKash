@@ -23,7 +23,7 @@ public class splash_screen extends AppCompatActivity {
             public void run() {
 
                 try {
-                    Thread.sleep(2500);
+                    Thread.sleep(1700);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

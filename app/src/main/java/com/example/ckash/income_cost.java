@@ -185,7 +185,8 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                                      }
                                      else
                                      {
-                                         editor.putString("lastBalance",amount);
+                                         int newBalance = 0 - Integer.parseInt(amount);
+                                         editor.putString("lastBalance",Integer.toString(newBalance));
                                          editor.commit();
                                          editor.putString("lastid","1");
                                          editor.commit();

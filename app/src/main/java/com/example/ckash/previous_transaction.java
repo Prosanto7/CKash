@@ -61,6 +61,7 @@ public class previous_transaction extends AppCompatActivity implements Navigatio
             int lastid = Integer.parseInt(sharedPreferences.getString("lastid", "Data Not Found"));
 
             String[] total_result_array = new String[lastid];
+            String[] total_result_array_reverse = new String[lastid];
 
             if (sharedPreferences.contains("lastid")) {
 
@@ -71,11 +72,20 @@ public class previous_transaction extends AppCompatActivity implements Navigatio
 
             }
 
+            int i = 0;
+            int j = lastid - 1;
+            while(i<lastid)
+            {
+                total_result_array_reverse[j] = total_result_array[i];
+                i++;
+                j--;
+            }
+
 
             previous_transaction_listview = (ListView) findViewById(R.id.previous_transaction_listview);
             searchView = (SearchView) findViewById(R.id.searchview);
 
-            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(previous_transaction.this, R.layout.sampleview, R.id.sampleview_textview, total_result_array);
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(previous_transaction.this, R.layout.sampleview, R.id.sampleview_textview, total_result_array_reverse);
             previous_transaction_listview.setAdapter(adapter);
 
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
