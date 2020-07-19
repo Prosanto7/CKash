@@ -103,6 +103,8 @@ public class signin extends AppCompatActivity {
         }
         if(item.getItemId()==R.id.aboutus_menu)
         {
+            Intent intent = new Intent(signin.this,aboutus.class);
+            startActivity(intent);
             return true;
         }
 

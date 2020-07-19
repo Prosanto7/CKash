@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +60,16 @@ public class feedback extends AppCompatActivity {
 
     }
 
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_layout,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -66,6 +78,27 @@ public class feedback extends AppCompatActivity {
             this.finish();
         }
 
+        if(item.getItemId()==R.id.share_menu)
+        {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+
+            String subject = "আমার ক্যাশ অ্যাপ";
+            String body = "আপনার দৈনন্দিন জীবনের সকল হিসাব-নিকাশ, আয়-ব্যায় সবকিছুর সমাধান পাবেন এই অ্যাপে";
+
+            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+            intent.putExtra(Intent.EXTRA_TEXT,body);
+            startActivity(intent.createChooser(intent,"Share With"));
+            return true;
+        }
+
+        if(item.getItemId()==R.id.aboutus_menu)
+        {
+            Intent intent = new Intent(feedback.this,aboutus.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

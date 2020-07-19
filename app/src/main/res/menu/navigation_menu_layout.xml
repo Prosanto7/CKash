@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view"
-
     >
 
     <group android:checkableBehavior="single">
@@ -28,13 +27,13 @@
 
 
 
-    <item android:title="Communicate">
+    <item android:title="যোগাযোগ">
 
         <menu>
 
             <item
                 android:id="@+id/contact_navigationbar"
-                android:title="যোগাযোগ"
+                android:title="কল"
                 android:icon="@drawable/ic_baseline_call_24"
                 />
 

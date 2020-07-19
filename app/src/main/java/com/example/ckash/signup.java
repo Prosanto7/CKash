@@ -108,6 +108,8 @@ public class signup extends AppCompatActivity {
         }
         if(item.getItemId()==R.id.aboutus_menu)
         {
+            Intent intent = new Intent(signup.this,aboutus.class);
+            startActivity(intent);
             return true;
         }
 
