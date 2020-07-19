@@ -6,8 +6,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +22,14 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -34,7 +44,7 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
     private Button submit_button;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income_cost);
 
@@ -64,7 +74,7 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                 String amount = amount_edittext.getText().toString();
                 final String cause = cause_edittext.getText().toString();
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy তারিখ hh:mm:ss a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy তারিখ hh:mm:ss a", Locale.getDefault());
                 String currentDateandTime = sdf.format(new Date());
 
                 if(!amount.equals("")&&!cause.equals(""))
@@ -73,16 +83,43 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                     {
                          if(income_radio_button.isChecked())
                          {
-                             String messase = "আপনি "+currentDateandTime+" এই সময়ে ("+cause+") এই কারণে "+amount+" টাকা আয় করেছেন ";
+                             final String income_messase = "আপনি "+currentDateandTime+" এই সময়ে ("+cause+") এই কারণে "+amount+" টাকা আয় করেছেন";
 
                              AlertDialog.Builder alertdailogebuilder = new AlertDialog.Builder(income_cost.this);
                              alertdailogebuilder.setTitle("আবার দেখুন");
-                             alertdailogebuilder.setMessage(messase);
+                             alertdailogebuilder.setMessage(income_messase);
                              alertdailogebuilder.setIcon(R.drawable.ic_baseline_add_alert_24);
 
                              alertdailogebuilder.setPositiveButton("হ্যাঁ", new DialogInterface.OnClickListener() {
                                  @Override
                                  public void onClick(DialogInterface dialog, int which) {
+
+                                     SharedPreferences sharedPreferences = getSharedPreferences("transaction_database",Context.MODE_PRIVATE);
+                                     SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                     if(sharedPreferences.contains("lastid"))
+                                     {
+                                         int lastid = Integer.parseInt(sharedPreferences.getString("lastid","Data Not Found"));
+                                         int newid = lastid+1;
+                                         editor.putString("lastid",Integer.toString(newid));
+                                         editor.commit();
+                                         editor.putString(Integer.toString(newid),income_messase);
+                                         editor.commit();
+                                     }
+                                     else
+                                     {
+                                         editor.putString("lastid","1");
+                                         editor.commit();
+                                         editor.putString("1",income_messase);
+                                         editor.commit();
+                                     }
+
+                                     Toast.makeText(income_cost.this,"সাবমিশন সফল হয়েছে",Toast.LENGTH_SHORT).show();
+
+                                         amount_edittext.setText("");
+                                         cause_edittext.setText("");
+                                         income_radio_button.setChecked(false);
+                                         cost_radio_button.setChecked(false);
 
                                  }
                              });
@@ -113,17 +150,46 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
                          }
                          else
                          {
-
-                             String messase = "আপনি "+currentDateandTime+" এই সময়ে ("+cause+") এই কারণে "+amount+" এত টাকা ব্যয় করেছেন ";
+                             final String cost_messase = "আপনি "+currentDateandTime+" এই সময়ে ("+cause+") এই কারণে "+amount+" টাকা ব্যয় করেছেন";
 
                              AlertDialog.Builder alertdailogebuilder = new AlertDialog.Builder(income_cost.this);
                              alertdailogebuilder.setTitle("আবার দেখুন");
-                             alertdailogebuilder.setMessage(messase);
+                             alertdailogebuilder.setMessage(cost_messase);
                              alertdailogebuilder.setIcon(R.drawable.ic_baseline_add_alert_24);
 
                              alertdailogebuilder.setPositiveButton("হ্যাঁ", new DialogInterface.OnClickListener() {
                                  @Override
                                  public void onClick(DialogInterface dialog, int which) {
+
+                                     SharedPreferences sharedPreferences = getSharedPreferences("transaction_database",Context.MODE_PRIVATE);
+                                     SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                     if(sharedPreferences.contains("lastid"))
+                                     {
+                                        int lastid = Integer.parseInt(sharedPreferences.getString("lastid","Data Not Found"));
+                                        int newid = lastid+1;
+                                        editor.putString("lastid",Integer.toString(newid));
+                                        editor.commit();
+                                        editor.putString(""+newid,cost_messase);
+                                        editor.commit();
+                                     }
+                                     else
+                                     {
+                                         editor.putString("lastid","1");
+                                         editor.commit();
+                                         editor.putString("1",cost_messase);
+                                         editor.commit();
+                                     }
+
+
+
+
+                                     Toast.makeText(income_cost.this,"সাবমিশন সফল হয়েছে",Toast.LENGTH_SHORT).show();
+
+                                     amount_edittext.setText("");
+                                     cause_edittext.setText("");
+                                     income_radio_button.setChecked(false);
+                                     cost_radio_button.setChecked(false);
 
                                  }
                              });

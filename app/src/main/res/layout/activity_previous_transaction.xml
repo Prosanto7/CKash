@@ -8,6 +8,36 @@
     tools:openDrawer="start"
     tools:context=".previous_transaction">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <SearchView
+            android:id="@+id/searchview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="প্রয়োজনীয় তথ্য খুঁজুন"
+
+            />
+
+        <ListView
+            android:id="@+id/previous_transaction_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/holo_blue_dark"
+            android:dividerHeight="3dp"
+            android:listSelector="@android:color/holo_blue_light"
+            >
+
+
+        </ListView>
+
+
+
+    </LinearLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationbar_of_previous_transaction"
         android:layout_width="wrap_content"

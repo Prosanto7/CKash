@@ -5,18 +5,36 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class previous_transaction extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
+
+    private ListView previous_transaction_listview;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +52,50 @@ public class previous_transaction extends AppCompatActivity implements Navigatio
         toggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("transaction_database", Context.MODE_PRIVATE);
+
+        int lastid = Integer.parseInt(sharedPreferences.getString("lastid","Data Not Found"));
+
+        String[] total_result_array = new String[lastid];
+
+
+
+        if(sharedPreferences.contains("lastid"))
+        {
+
+            for (int i = 0;i<lastid;i++)
+            {
+            String result = sharedPreferences.getString(Integer.toString(i+1), "Data "+i+1+" Not Found") + "\n";
+            total_result_array[i] = result;
+           }
+            
+        }
+
+
+        previous_transaction_listview = (ListView) findViewById(R.id.previous_transaction_listview);
+        searchView = (SearchView) findViewById(R.id.searchview);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(previous_transaction.this,R.layout.sampleview,R.id.sampleview_textview,total_result_array);
+        previous_transaction_listview.setAdapter(adapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+        // result_textview.setText(result);
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
