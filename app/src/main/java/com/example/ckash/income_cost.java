@@ -2,21 +2,36 @@ package com.example.ckash;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class income_cost extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
+
+    private EditText amount_edittext,cause_edittext;
+    private RadioButton income_radio_button,cost_radio_button;
+    private Button submit_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +49,124 @@ public class income_cost extends AppCompatActivity implements NavigationView.OnN
         toggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        amount_edittext = (EditText) findViewById(R.id.ammount_edittext);
+        cause_edittext = (EditText) findViewById(R.id.cause_edittext);
+        income_radio_button = (RadioButton) findViewById(R.id.income_radiobutton);
+        cost_radio_button = (RadioButton) findViewById(R.id.cost_radiobutton);
+        submit_button = (Button) findViewById(R.id.submit_button);
+
+        submit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String amount = amount_edittext.getText().toString();
+                final String cause = cause_edittext.getText().toString();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy তারিখ hh:mm:ss a", Locale.getDefault());
+                String currentDateandTime = sdf.format(new Date());
+
+                if(!amount.equals("")&&!cause.equals(""))
+                {
+                    if(income_radio_button.isChecked()||cost_radio_button.isChecked())
+                    {
+                         if(income_radio_button.isChecked())
+                         {
+                             String messase = "আপনি "+currentDateandTime+" এই সময়ে ("+cause+") এই কারণে "+amount+" টাকা আয় করেছেন ";
+
+                             AlertDialog.Builder alertdailogebuilder = new AlertDialog.Builder(income_cost.this);
+                             alertdailogebuilder.setTitle("আবার দেখুন");
+                             alertdailogebuilder.setMessage(messase);
+                             alertdailogebuilder.setIcon(R.drawable.ic_baseline_add_alert_24);
+
+                             alertdailogebuilder.setPositiveButton("হ্যাঁ", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+
+                                 }
+                             });
+
+                             alertdailogebuilder.setNegativeButton("না", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+
+                                 }
+                             });
+
+                             alertdailogebuilder.setNeutralButton("বাতিল করুন", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+
+                                     amount_edittext.setText("");
+                                     cause_edittext.setText("");
+                                     income_radio_button.setChecked(false);
+                                     cost_radio_button.setChecked(false);
+
+                                 }
+                             });
+
+                             AlertDialog alertDialog = alertdailogebuilder.create();
+                             alertDialog.show();
+
+
+                         }
+                         else
+                         {
+
+                             String messase = "আপনি "+currentDateandTime+" এই সময়ে ("+cause+") এই কারণে "+amount+" এত টাকা ব্যয় করেছেন ";
+
+                             AlertDialog.Builder alertdailogebuilder = new AlertDialog.Builder(income_cost.this);
+                             alertdailogebuilder.setTitle("আবার দেখুন");
+                             alertdailogebuilder.setMessage(messase);
+                             alertdailogebuilder.setIcon(R.drawable.ic_baseline_add_alert_24);
+
+                             alertdailogebuilder.setPositiveButton("হ্যাঁ", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+
+                                 }
+                             });
+
+                             alertdailogebuilder.setNegativeButton("না", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+
+                                 }
+                             });
+
+                             alertdailogebuilder.setNeutralButton("বাতিল করুন", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+
+                                     amount_edittext.setText("");
+                                     cause_edittext.setText("");
+                                     income_radio_button.setChecked(false);
+                                     cost_radio_button.setChecked(false);
+
+                                 }
+                             });
+
+                             AlertDialog alertDialog = alertdailogebuilder.create();
+                             alertDialog.show();
+
+                         }
+                    }
+                    else
+                    {
+                        Toast.makeText(income_cost.this,"দয়া করে আয়-ব্যয় নির্ণয় করুন",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(income_cost.this,"দয়া করে সব তথ্য দিন",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

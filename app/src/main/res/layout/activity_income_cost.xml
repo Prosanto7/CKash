@@ -8,6 +8,85 @@
     tools:openDrawer="start"
     tools:context=".income_cost">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+    <EditText
+        android:id="@+id/ammount_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="টাকার পরিমাণ"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:inputType="number"
+        android:backgroundTint="@android:color/holo_blue_light"
+        />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        >
+
+        <RadioButton
+            android:id="@+id/income_radiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="আয়"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:padding="20dp"
+            />
+        <RadioButton
+            android:id="@+id/cost_radiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ব্যায়"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:padding="20dp"
+            />
+    </RadioGroup>
+
+        <EditText
+            android:id="@+id/cause_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="কারণ উল্লেখ করুন"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:inputType="text"
+            android:backgroundTint="@android:color/holo_blue_light"
+            />
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="সাবমিট করুন"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_blue_light"
+            />
+
+
+
+    </LinearLayout>
+
+
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationbar_of_income_cost"
         android:layout_width="wrap_content"
